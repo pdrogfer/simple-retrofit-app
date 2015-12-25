@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
         tvResult = (TextView) findViewById(R.id.tv_result);
 
+        // all this should be in another class, don't put logic in Activities, just GUI staff,
+        // a cleaner approach for better testing
         final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://pgfmusic.com/php_course/")
                 .addConverterFactory(GsonConverterFactory.create())
