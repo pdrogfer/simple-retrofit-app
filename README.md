@@ -2,7 +2,7 @@
 A simple example usage of Retrofit 2.0
 
 ### Description
-This is a sample Android Studio project to get started with Retrofit. The app retrieves a json array of database objects(customers), and provides them in form of array of Customer objects. There is nothing there except Retrofit, to make it easier to read and use.
+This is a sample Android Studio project to get started with Retrofit. The app retrieves a json array of database objects (customers), and provides them in form of array of Customer objects. There is nothing there except Retrofit, to make it easier to read and use.
 
 ### Usage
 Just have a look at the code, or better still, clone it to a local repository in your machine:
