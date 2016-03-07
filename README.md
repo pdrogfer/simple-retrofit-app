@@ -8,4 +8,4 @@ Another great milestone in my **Simple** series. Enjoy!
 
 ### License
 
-This code is on the public domain, under the [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).
+This code is on the public domain, under the [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) license.
