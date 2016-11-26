@@ -6,7 +6,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -21,12 +25,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * en formato array<Objeto>, en este caso customers (de la base de datos 'tnb')
  */
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, Callback<List<Movie>> {
     private static final String TAG = "MainActivity";
 
     Button btnSearch;
     EditText searchInput;
-    TextView textViewResult;
+    ImageView poster;
     private MovieService movieService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +39,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnSearch = (Button) findViewById(R.id.btnSearch);
         searchInput = (EditText) findViewById(R.id.editText);
-        textViewResult = (TextView) findViewById(R.id.textViewResult);
+        poster = (ImageView) findViewById(R.id.imageView);
+
         btnSearch.setOnClickListener(this);
 
         Retrofit retrofitInstance = new Retrofit.Builder()
@@ -49,23 +54,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        final Call<List<Movie>> movieCall = movieService.searchMovie(searchInput.getText().toString());
-        movieCall.enqueue(new Callback<List<Movie>>() {
-            @Override
-            public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
-                Log.i(TAG, "onResponse: " + response.body().);
-                for (int i = 0; i < response.body().size(); i++) {
-                    Movie tempMovie = response.body().get(i);
-                    Log.i(TAG, "onResponse: " + tempMovie.getTitle() + ", " + tempMovie.getActors());
 
-                }
-            }
+        Retrofit retrofitInstance = new Retrofit.Builder()
+                .baseUrl("http://www.omdbapi.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-            @Override
-            public void onFailure(Call<List<Movie>> call, Throwable t) {
-                Log.i(TAG, "onFailure: " + t.toString());
-            }
-        });
+        movieService = retrofitInstance.create(MovieService.class);
+
+        Call<List<Movie>> movieCall = movieService.searchMovie(searchInput.getText().toString());
+        movieCall.enqueue(this);
     }
 
+    @Override
+    public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
+        Toast.makeText(this, response.body().getActors(), Toast.LENGTH_LONG).show();
+        Log.i(TAG, "onResponse: " + response.body().getPoster());
+
+        Picasso.with(this).load(response.body().getPoster()).into(poster);
+    }
+
+    @Override
+    public void onFailure(Call<List<Movie>> call, Throwable t) {
+        Toast.makeText(this, "Error recuperando pelicula" + t.toString(), Toast.LENGTH_SHORT).show();
+    }
 }

@@ -4,6 +4,8 @@ import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import javax.annotation.Generated;
+
 @Generated("org.jsonschema2pojo")
 public class Movie {
 
@@ -426,6 +428,15 @@ public class Movie {
      */
     public void setResponse(String response) {
         this.response = response;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie {" +
+                "actors='" + actors + '\'' +
+                ", title='" + title + '\'' +
+                ", year='" + year + '\'' +
+                '}';
     }
 
 }
