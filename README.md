@@ -2,7 +2,8 @@
 A simple example usage of Retrofit 2.0
 
 ### Description
-This is a sample Android Studio project to get started with Retrofit. The app retrieves a json array of database objects (customers), and provides them in form of array of Customer objects. There is nothing there except Retrofit, to make it easier to read and use.
+This is a sample Android Studio project to get started with Retrofit. The app retrieves a JSONObject from Open Movie Database (search movie title), and parses it to a Movie object. Then fields are extracted from it (url for the poster, and actors names) and displayed to the UI. There is nothing there except Retrofit (and Picasso, to handle the image), to make it easier to read and use.
+The Movie object class is generated from json, using [jsonschematopojo](http://www.jsonschema2pojo.org/).
 
 ### Usage
 Just have a look at the code, or better still, clone it to a local repository in your machine:
